@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <title>Vision Developer</title>
 
@@ -15,50 +15,28 @@
 
 <style>
 
+:root{
+--primary:#00bfff;
+--secondary:#005dff;
+--dark:#020617;
+--glass:rgba(255,255,255,.05);
+}
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:'Poppins',sans-serif;
 scroll-behavior:smooth;
-cursor:none;
 }
 
 body{
 background:#020617;
 overflow-x:hidden;
-color:white;
+color:#fff;
 }
 
-/* CUSTOM CURSOR */
-
-.cursor{
-width:20px;
-height:20px;
-border:2px solid #00bfff;
-border-radius:50%;
-position:fixed;
-pointer-events:none;
-z-index:999999;
-transform:translate(-50%,-50%);
-box-shadow:
-0 0 20px #00bfff,
-0 0 60px rgba(0,191,255,.8);
-transition:.08s linear;
-}
-
-.cursor-dot{
-width:5px;
-height:5px;
-background:white;
-border-radius:50%;
-position:fixed;
-pointer-events:none;
-z-index:999999;
-transform:translate(-50%,-50%);
-}
-
-/* LOADER */
+/* ================= LOADER ================= */
 
 .loader{
 position:fixed;
@@ -69,30 +47,32 @@ justify-content:center;
 align-items:center;
 flex-direction:column;
 gap:30px;
-z-index:9999999;
-transition:1s;
+z-index:999999999;
+transition:1s ease;
 }
 
 .loader.hide{
 opacity:0;
 visibility:hidden;
+pointer-events:none;
 }
 
 .loader-ring{
-width:140px;
-height:140px;
+width:130px;
+height:130px;
 border-radius:50%;
-border:3px solid rgba(255,255,255,.1);
+border:3px solid rgba(255,255,255,.08);
 border-top:3px solid #00bfff;
 animation:spin 1s linear infinite;
 box-shadow:
 0 0 30px #00bfff,
-0 0 120px rgba(0,191,255,.5);
+0 0 90px rgba(0,191,255,.35);
 }
 
 .loader h2{
-font-size:20px;
-letter-spacing:5px;
+font-size:18px;
+letter-spacing:7px;
+font-weight:700;
 }
 
 @keyframes spin{
@@ -101,7 +81,7 @@ transform:rotate(360deg);
 }
 }
 
-/* NAVBAR */
+/* ================= NAVBAR ================= */
 
 nav{
 position:fixed;
@@ -112,40 +92,31 @@ padding:22px 7%;
 display:flex;
 justify-content:space-between;
 align-items:center;
-z-index:9999;
-background:rgba(0,0,0,.35);
-backdrop-filter:blur(18px);
-border-bottom:1px solid rgba(255,255,255,.08);
-transition:.4s;
+z-index:99999;
+background:rgba(0,0,0,.18);
+backdrop-filter:blur(20px);
+border-bottom:1px solid rgba(255,255,255,.05);
+transition:.4s ease;
 }
 
 nav.active{
 padding:15px 7%;
-background:rgba(0,0,0,.7);
-box-shadow:
-0 0 30px rgba(0,191,255,.15);
+background:rgba(0,0,0,.75);
 }
 
 .logo{
 display:flex;
 align-items:center;
-gap:16px;
+gap:15px;
 }
 
 .logo img{
-width:65px;
-height:65px;
+width:60px;
+height:60px;
 border-radius:50%;
 border:2px solid #00bfff;
-box-shadow:
-0 0 25px #00bfff;
-animation:rotateLogo 12s linear infinite;
-}
-
-@keyframes rotateLogo{
-100%{
-transform:rotate(360deg);
-}
+box-shadow:0 0 30px rgba(0,191,255,.5);
+object-fit:cover;
 }
 
 .logo h1{
@@ -158,22 +129,38 @@ background:linear-gradient(to right,#00bfff,#fff);
 
 nav ul{
 display:flex;
-gap:40px;
+gap:38px;
 list-style:none;
 }
 
 nav ul li a{
-color:white;
 text-decoration:none;
+color:#fff;
 font-weight:600;
 transition:.3s;
+position:relative;
+}
+
+nav ul li a::after{
+content:'';
+position:absolute;
+left:0;
+bottom:-6px;
+width:0%;
+height:2px;
+background:#00bfff;
+transition:.4s;
 }
 
 nav ul li a:hover{
 color:#00bfff;
 }
 
-/* HERO */
+nav ul li a:hover::after{
+width:100%;
+}
+
+/* ================= HERO ================= */
 
 .hero{
 position:relative;
@@ -181,7 +168,6 @@ min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-text-align:center;
 padding:0 7%;
 overflow:hidden;
 }
@@ -191,7 +177,7 @@ position:absolute;
 inset:0;
 width:100%;
 height:100%;
-z-index:-10;
+z-index:-50;
 }
 
 .hero::before{
@@ -199,80 +185,141 @@ content:'';
 position:absolute;
 inset:0;
 background:
-radial-gradient(circle at top left,rgba(0,191,255,.18),transparent 30%),
-radial-gradient(circle at bottom right,rgba(0,89,255,.18),transparent 30%),
-linear-gradient(to bottom,rgba(0,0,0,.2),#020617);
-z-index:-9;
+linear-gradient(to bottom,
+rgba(0,0,0,.15),
+rgba(2,6,23,.85));
+z-index:-40;
 }
 
-.hero-glow{
+/* GRID HORIZON */
+
+.horizon{
 position:absolute;
-width:700px;
-height:700px;
-background:radial-gradient(circle,rgba(0,191,255,.18),transparent 70%);
+bottom:-180px;
+left:-10%;
+width:120%;
+height:550px;
+
+background:
+linear-gradient(rgba(0,191,255,.18) 1px,transparent 1px),
+linear-gradient(90deg,rgba(0,191,255,.18) 1px,transparent 1px);
+
+background-size:70px 70px;
+
+transform:
+perspective(1000px)
+rotateX(78deg);
+
+mask-image:linear-gradient(to top,rgba(0,0,0,1),transparent);
+
+opacity:.8;
+z-index:-20;
+}
+
+/* CENTER LIGHT */
+
+.center-light{
+position:absolute;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
+width:800px;
+height:800px;
+background:
+radial-gradient(circle,
+rgba(0,191,255,.22),
+transparent 70%);
 filter:blur(90px);
-animation:pulse 5s ease-in-out infinite;
-z-index:-8;
+animation:pulse 6s ease-in-out infinite;
+z-index:-25;
 }
 
 @keyframes pulse{
 50%{
-transform:translate(-50%,-50%) scale(1.1);
+transform:translate(-50%,-50%) scale(1.08);
 }
 }
 
-/* GRID */
+/* FLOATING ORBS */
 
-.grid-floor{
+.glass-orb{
 position:absolute;
-bottom:-120px;
-left:-10%;
-width:120%;
-height:420px;
-background:
-linear-gradient(rgba(0,191,255,.12) 1px,transparent 1px),
-linear-gradient(90deg,rgba(0,191,255,.12) 1px,transparent 1px);
-background-size:70px 70px;
-transform:
-perspective(800px)
-rotateX(78deg);
-mask-image:linear-gradient(to top,rgba(0,0,0,1),transparent);
-z-index:-6;
+border-radius:50%;
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,.08);
+box-shadow:0 0 40px rgba(0,191,255,.15);
+animation:float 7s ease-in-out infinite;
 }
+
+.orb1{
+width:140px;
+height:140px;
+top:16%;
+left:10%;
+}
+
+.orb2{
+width:100px;
+height:100px;
+bottom:16%;
+right:15%;
+animation-delay:2s;
+}
+
+.orb3{
+width:70px;
+height:70px;
+top:30%;
+right:18%;
+animation-delay:1s;
+}
+
+@keyframes float{
+50%{
+transform:translateY(-25px);
+}
+}
+
+/* HERO CONTENT */
 
 .hero-content{
-max-width:1050px;
-z-index:2;
+max-width:1100px;
+text-align:center;
+position:relative;
+z-index:10;
 }
 
 .hero-badge{
 display:inline-flex;
 align-items:center;
 gap:12px;
-padding:12px 22px;
+padding:12px 24px;
 border-radius:60px;
-background:rgba(255,255,255,.05);
+background:rgba(255,255,255,.06);
 border:1px solid rgba(255,255,255,.08);
-backdrop-filter:blur(12px);
+backdrop-filter:blur(14px);
 margin-bottom:35px;
 font-size:14px;
 font-weight:600;
+animation:fadeUp 1s ease;
+}
+
+.hero-badge i{
+color:#00bfff;
 }
 
 .hero-content h2{
-font-size:95px;
+font-size:110px;
 line-height:1;
 font-weight:900;
-letter-spacing:-3px;
+letter-spacing:-5px;
 margin-bottom:28px;
 animation:fadeUp 1.2s ease;
 }
 
 .hero-content h2 span{
-background:linear-gradient(to right,#00bfff,#fff);
+background:linear-gradient(to right,#00bfff,#fff,#00bfff);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
@@ -280,22 +327,11 @@ background:linear-gradient(to right,#00bfff,#fff);
 .hero-content p{
 max-width:850px;
 margin:auto;
-font-size:21px;
+font-size:20px;
 line-height:1.9;
 color:#b8c1cc;
 font-weight:300;
-animation:fadeUp 1.6s ease;
-}
-
-@keyframes fadeUp{
-0%{
-opacity:0;
-transform:translateY(80px);
-}
-100%{
-opacity:1;
-transform:translateY(0);
-}
+animation:fadeUp 1.5s ease;
 }
 
 .hero-buttons{
@@ -303,11 +339,12 @@ display:flex;
 justify-content:center;
 gap:25px;
 flex-wrap:wrap;
-margin-top:70px;
+margin-top:60px;
+animation:fadeUp 1.8s ease;
 }
 
 .btn{
-padding:19px 42px;
+padding:18px 42px;
 border-radius:80px;
 text-decoration:none;
 font-size:16px;
@@ -315,7 +352,7 @@ font-weight:700;
 display:flex;
 align-items:center;
 gap:12px;
-transition:.4s;
+transition:.45s ease;
 position:relative;
 overflow:hidden;
 }
@@ -323,61 +360,62 @@ overflow:hidden;
 .btn::before{
 content:'';
 position:absolute;
-top:-120%;
-left:-40%;
-width:180%;
-height:300%;
+top:0;
+left:-120%;
+width:100%;
+height:100%;
 background:linear-gradient(
-120deg,
+90deg,
 transparent,
-rgba(255,255,255,.3),
+rgba(255,255,255,.35),
 transparent
 );
-transform:rotate(25deg);
-animation:shine 5s linear infinite;
+transition:.8s;
 }
 
-@keyframes shine{
-100%{
-transform:translateX(120%) rotate(25deg);
-}
+.btn:hover::before{
+left:120%;
 }
 
 .primary-btn{
 background:linear-gradient(to right,#00bfff,#005dff);
-color:white;
+color:#fff;
+
 box-shadow:
 0 0 30px rgba(0,191,255,.5),
-0 0 80px rgba(0,191,255,.2);
+0 0 90px rgba(0,191,255,.12);
 }
 
 .secondary-btn{
-border:1px solid rgba(255,255,255,.15);
-background:rgba(255,255,255,.04);
-backdrop-filter:blur(12px);
-color:white;
+border:1px solid rgba(255,255,255,.14);
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(14px);
+color:#fff;
 }
 
 .btn:hover{
 transform:translateY(-8px) scale(1.03);
 }
 
-/* SECTION */
+/* ================= SECTION ================= */
 
 section{
-padding:170px 8%;
+padding:160px 8%;
 position:relative;
+overflow:hidden;
 }
 
 .section-title{
 text-align:center;
 margin-bottom:80px;
+position:relative;
+z-index:2;
 }
 
 .section-title h2{
 font-size:70px;
 font-weight:900;
-margin-bottom:15px;
+margin-bottom:16px;
 }
 
 .section-title p{
@@ -385,18 +423,114 @@ font-size:20px;
 color:#9ca3af;
 }
 
-/* SERVICES */
+/* ================= SERVICES ================= */
 
 .services{
-background:#030712;
-overflow:hidden;
+background:
+radial-gradient(circle at top,
+rgba(0,191,255,.12),
+transparent 35%),
+#030712;
 }
+
+/* BACKGROUND PATHS */
+
+.services-bg{
+position:absolute;
+inset:0;
+overflow:hidden;
+z-index:0;
+pointer-events:none;
+}
+
+.services-bg svg{
+position:absolute;
+width:180%;
+height:180%;
+top:-35%;
+left:-40%;
+opacity:.9;
+}
+
+.path{
+fill:none;
+stroke-linecap:round;
+stroke-dasharray:1200;
+stroke-dashoffset:1200;
+animation:pathMove linear infinite;
+filter:drop-shadow(0 0 10px rgba(0,191,255,.35));
+}
+
+.p1{
+stroke:rgba(0,191,255,.16);
+stroke-width:1;
+animation-duration:16s;
+}
+
+.p2{
+stroke:rgba(255,255,255,.08);
+stroke-width:1.2;
+animation-duration:20s;
+animation-delay:2s;
+}
+
+.p3{
+stroke:rgba(0,191,255,.14);
+stroke-width:1.5;
+animation-duration:22s;
+animation-delay:5s;
+}
+
+.p4{
+stroke:rgba(255,255,255,.08);
+stroke-width:1;
+animation-duration:18s;
+animation-delay:3s;
+}
+
+.p5{
+stroke:rgba(0,191,255,.18);
+stroke-width:1.4;
+animation-duration:24s;
+animation-delay:4s;
+}
+
+.p6{
+stroke:rgba(255,255,255,.06);
+stroke-width:1;
+animation-duration:28s;
+animation-delay:6s;
+}
+
+@keyframes pathMove{
+
+0%{
+stroke-dashoffset:1200;
+opacity:.15;
+}
+
+50%{
+opacity:1;
+}
+
+100%{
+stroke-dashoffset:-1200;
+opacity:.15;
+}
+
+}
+
+/* GRID */
 
 .service-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
 gap:35px;
+position:relative;
+z-index:2;
 }
+
+/* CARD */
 
 .card{
 position:relative;
@@ -406,19 +540,21 @@ background:rgba(255,255,255,.04);
 border:1px solid rgba(255,255,255,.08);
 backdrop-filter:blur(18px);
 overflow:hidden;
-transition:.45s;
+transition:.5s cubic-bezier(.2,.8,.2,1);
 transform-style:preserve-3d;
-animation:floatCard 5s ease-in-out infinite;
 }
 
 .card::before{
 content:'';
 position:absolute;
-width:300px;
-height:300px;
-background:radial-gradient(circle,#00bfff33,transparent 70%);
-top:-150px;
+top:-120px;
 right:-120px;
+width:260px;
+height:260px;
+background:
+radial-gradient(circle,
+rgba(0,191,255,.2),
+transparent 70%);
 }
 
 .card::after{
@@ -428,11 +564,11 @@ inset:0;
 background:linear-gradient(
 120deg,
 transparent,
-rgba(255,255,255,.08),
+rgba(255,255,255,.03),
 transparent
 );
 transform:translateX(-100%);
-transition:.8s;
+transition:1s;
 }
 
 .card:hover::after{
@@ -441,30 +577,24 @@ transform:translateX(100%);
 
 .card:hover{
 transform:
-rotateX(6deg)
-rotateY(-6deg)
-translateY(-14px);
+translateY(-15px)
+rotateX(5deg)
+rotateY(-5deg);
+
 box-shadow:
 0 0 40px rgba(0,191,255,.18),
 0 0 100px rgba(0,191,255,.08);
-}
-
-@keyframes floatCard{
-50%{
-transform:translateY(-6px);
-}
 }
 
 .card i{
 font-size:58px;
 margin-bottom:24px;
 color:#00bfff;
-filter:drop-shadow(0 0 18px rgba(0,191,255,.6));
 }
 
 .card h3{
-font-size:31px;
-margin-bottom:15px;
+font-size:30px;
+margin-bottom:16px;
 }
 
 .card p{
@@ -473,7 +603,7 @@ line-height:1.9;
 color:#c9d1d9;
 }
 
-/* CONTACT */
+/* ================= CONTACT ================= */
 
 .contact{
 background:#020617;
@@ -487,43 +617,33 @@ gap:35px;
 
 .contact-link{
 text-decoration:none;
-color:white;
+color:#fff;
 }
 
 .contact-card{
-position:relative;
-overflow:hidden;
 padding:55px 35px;
 border-radius:35px;
 background:rgba(255,255,255,.04);
 border:1px solid rgba(255,255,255,.08);
 backdrop-filter:blur(18px);
 text-align:center;
-transition:.45s;
-}
-
-.contact-card::before{
-content:'';
-position:absolute;
-width:250px;
-height:250px;
-background:radial-gradient(circle,rgba(255,255,255,.08),transparent 70%);
-top:-120px;
-right:-120px;
+transition:.45s ease;
 }
 
 .contact-card:hover{
 transform:translateY(-12px);
+box-shadow:0 0 40px rgba(0,191,255,.12);
 }
 
 .contact-card i{
-font-size:75px;
-margin-bottom:22px;
+font-size:70px;
+margin-bottom:24px;
+color:#00bfff;
 }
 
 .contact-card h3{
 font-size:32px;
-margin-bottom:12px;
+margin-bottom:10px;
 }
 
 .contact-card p{
@@ -532,37 +652,25 @@ color:#d1d5db;
 word-break:break-word;
 }
 
-.insta-card:hover{
-box-shadow:0 0 40px rgba(255,0,170,.3);
-}
-
-.whatsapp-card:hover{
-box-shadow:0 0 40px rgba(0,255,140,.3);
-}
-
-.email-card:hover{
-box-shadow:0 0 40px rgba(0,191,255,.3);
-}
-
-/* FOOTER */
+/* ================= FOOTER ================= */
 
 footer{
 padding:35px;
 text-align:center;
 background:#000814;
-border-top:1px solid rgba(255,255,255,.08);
+border-top:1px solid rgba(255,255,255,.06);
 }
 
 footer p{
 color:#94a3b8;
 }
 
-/* REVEAL */
+/* ================= REVEAL ================= */
 
 .reveal{
 opacity:0;
-transform:translateY(80px);
-transition:1s;
+transform:translateY(70px);
+transition:1s ease;
 }
 
 .reveal.active{
@@ -570,7 +678,23 @@ opacity:1;
 transform:translateY(0);
 }
 
-/* SCROLLBAR */
+/* ================= ANIMATION ================= */
+
+@keyframes fadeUp{
+
+0%{
+opacity:0;
+transform:translateY(80px);
+}
+
+100%{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* ================= SCROLLBAR ================= */
 
 ::-webkit-scrollbar{
 width:10px;
@@ -582,24 +706,15 @@ background:#020617;
 
 ::-webkit-scrollbar-thumb{
 background:linear-gradient(#00bfff,#005dff);
-border-radius:30px;
+border-radius:20px;
 }
 
-/* MOBILE */
+/* ================= MOBILE ================= */
 
 @media(max-width:900px){
 
-*{
-cursor:auto;
-}
-
-.cursor,
-.cursor-dot{
-display:none;
-}
-
 nav{
-padding:15px 5%;
+padding:16px 5%;
 }
 
 nav ul{
@@ -611,17 +726,17 @@ font-size:18px;
 }
 
 .logo img{
-width:55px;
-height:55px;
+width:50px;
+height:50px;
 }
 
 .hero{
-padding-top:140px;
+padding-top:120px;
 padding-bottom:80px;
 }
 
 .hero-content h2{
-font-size:52px;
+font-size:58px;
 line-height:1.05;
 }
 
@@ -630,7 +745,6 @@ font-size:16px;
 }
 
 .hero-buttons{
-margin-top:50px;
 gap:18px;
 }
 
@@ -640,15 +754,20 @@ justify-content:center;
 }
 
 .section-title h2{
-font-size:42px;
+font-size:44px;
 }
 
 .card h3{
 font-size:26px;
 }
 
-.contact-card h3{
-font-size:28px;
+.horizon{
+height:320px;
+}
+
+.services-bg svg{
+width:260%;
+left:-80%;
 }
 
 }
@@ -659,13 +778,14 @@ font-size:28px;
 
 <body>
 
+<!-- ================= LOADER ================= -->
+
 <div class="loader">
 <div class="loader-ring"></div>
 <h2>VISION DEVELOPER</h2>
 </div>
 
-<div class="cursor"></div>
-<div class="cursor-dot"></div>
+<!-- ================= NAVBAR ================= -->
 
 <nav id="navbar">
 
@@ -682,15 +802,21 @@ font-size:28px;
 
 </nav>
 
+<!-- ================= HERO ================= -->
+
 <section class="hero">
 
 <canvas id="bgCanvas"></canvas>
 
-<div class="hero-glow"></div>
+<div class="center-light"></div>
 
-<div class="grid-floor"></div>
+<div class="horizon"></div>
 
-<div class="hero-content reveal">
+<div class="glass-orb orb1"></div>
+<div class="glass-orb orb2"></div>
+<div class="glass-orb orb3"></div>
+
+<div class="hero-content">
 
 <div class="hero-badge">
 <i class="fa-solid fa-sparkles"></i>
@@ -698,22 +824,22 @@ Future Ready Digital Experience
 </div>
 
 <h2>
-Build Your Bussiness With
+Build The Future With
 <span>Vision Developer</span>
 </h2>
 
 <p>
-Luxury futuristic websites, AI automation systems, cinematic UI experiences and premium digital solutions crafted for next generation brands.
+Luxury futuristic websites, AI automation systems, cinematic ads and premium digital experiences crafted for next generation brands.
 </p>
 
 <div class="hero-buttons">
 
-<a href="#services" class="btn primary-btn magnetic">
+<a href="#services" class="btn primary-btn">
 <i class="fa-solid fa-layer-group"></i>
 Explore Services
 </a>
 
-<a href="#contact" class="btn secondary-btn magnetic">
+<a href="#contact" class="btn secondary-btn">
 <i class="fa-solid fa-paper-plane"></i>
 Direct Contact
 </a>
@@ -724,11 +850,41 @@ Direct Contact
 
 </section>
 
+<!-- ================= SERVICES ================= -->
+
 <section class="services reveal" id="services">
+
+<!-- BG PATHS -->
+
+<div class="services-bg">
+
+<svg viewBox="0 0 696 316">
+
+<path class="path p1"
+d="M-380 -189C-380 -189 -312 216 152 343C616 470 684 875 684 875"/>
+
+<path class="path p2"
+d="M-360 -170C-360 -170 -280 200 180 320C640 440 700 840 700 840"/>
+
+<path class="path p3"
+d="M-340 -150C-340 -150 -250 180 210 300C650 430 720 810 720 810"/>
+
+<path class="path p4"
+d="M-320 -130C-320 -130 -220 160 240 280C670 410 740 780 740 780"/>
+
+<path class="path p5"
+d="M-300 -110C-300 -110 -180 140 270 260C690 390 760 750 760 750"/>
+
+<path class="path p6"
+d="M-280 -90C-280 -90 -150 120 300 240C710 370 780 720 780 720"/>
+
+</svg>
+
+</div>
 
 <div class="section-title">
 <h2>Premium Services</h2>
-<p>Modern digital solutions with cinematic futuristic design.</p>
+<p>Modern digital solutions with futuristic cinematic quality.</p>
 </div>
 
 <div class="service-grid">
@@ -736,54 +892,56 @@ Direct Contact
 <div class="card">
 <i class="fa-solid fa-globe"></i>
 <h3>3D Websites</h3>
-<p>Ultra smooth futuristic websites with cinematic animation and luxury UI.</p>
+<p>
+Ultra smooth futuristic websites with cinematic UI and advanced animations.
+</p>
 </div>
 
 <div class="card">
 <i class="fa-solid fa-robot"></i>
 <h3>AI Automation</h3>
-<p>24/7 AI chatbots and AI calling systems for smart businesses.</p>
+<p>
+24/7 AI calling systems, chatbots and business automation solutions.
+</p>
 </div>
 
 <div class="card">
 <i class="fa-solid fa-chart-line"></i>
 <h3>Marketing</h3>
-<p>Modern growth strategies and audience targeting for fast scaling.</p>
+<p>
+Modern audience targeting and premium growth strategies for brands.
+</p>
 </div>
 
 <div class="card">
 <i class="fa-solid fa-film"></i>
 <h3>Cinematic Ads</h3>
-<p>Luxury cinematic advertisements with futuristic editing and viral visuals.</p>
+<p>
+Luxury advertisement videos with viral editing and futuristic effects.
+</p>
 </div>
 
 <div class="card">
 <i class="fa-solid fa-camera-retro"></i>
 <h3>Content Creation</h3>
-<p>Premium content creation for branding and social media growth.</p>
-</div>
-
-<div class="card">
-<i class="fa-solid fa-image"></i>
-<h3>Thumbnail Design</h3>
-<p>High CTR thumbnails with luxury editing and eye-catching visuals.</p>
+<p>
+Premium content production for social media and online branding.
+</p>
 </div>
 
 <div class="card">
 <i class="fa-solid fa-share-nodes"></i>
-<h3>Social Media</h3>
-<p>Complete social media handling and premium account growth systems.</p>
-</div>
-
-<div class="card">
-<i class="fa-solid fa-pen-ruler"></i>
-<h3>Brand Identity</h3>
-<p>Luxury branding systems with futuristic visual identity.</p>
+<h3>Social Media Growth</h3>
+<p>
+Professional social media management and premium account scaling.
+</p>
 </div>
 
 </div>
 
 </section>
+
+<!-- ================= CONTACT ================= -->
 
 <section class="contact reveal" id="contact">
 
@@ -794,9 +952,11 @@ Direct Contact
 
 <div class="contact-grid">
 
-<a href="https://insta.openinapp.co/6px8j" target="_blank" class="contact-link">
+<a href="https://insta.openinapp.co/6px8j"
+target="_blank"
+class="contact-link">
 
-<div class="contact-card insta-card">
+<div class="contact-card">
 
 <i class="fa-brands fa-instagram"></i>
 
@@ -808,9 +968,10 @@ Direct Contact
 
 </a>
 
-<a href="https://wa.me/919546876660" class="contact-link">
+<a href="https://wa.me/919546876660"
+class="contact-link">
 
-<div class="contact-card whatsapp-card">
+<div class="contact-card">
 
 <i class="fa-brands fa-whatsapp"></i>
 
@@ -822,9 +983,10 @@ Direct Contact
 
 </a>
 
-<a href="mailto:visiondeveloper.global@gmail.com" class="contact-link">
+<a href="mailto:visiondeveloper.global@gmail.com"
+class="contact-link">
 
-<div class="contact-card email-card">
+<div class="contact-card">
 
 <i class="fa-solid fa-envelope"></i>
 
@@ -840,6 +1002,8 @@ Direct Contact
 
 </section>
 
+<!-- ================= FOOTER ================= -->
+
 <footer>
 <p>
 © 2026 Vision Developer — Future Ready Digital Experiences.
@@ -848,44 +1012,38 @@ Direct Contact
 
 <script>
 
-/* LOADER */
+/* ================= LOADER ================= */
 
 window.addEventListener("load",()=>{
 
+const loader = document.querySelector(".loader");
+
 setTimeout(()=>{
 
-document.querySelector(".loader").classList.add("hide");
+loader.classList.add("hide");
 
-},1800);
+setTimeout(()=>{
+loader.remove();
+},1000);
 
-});
-
-/* CURSOR */
-
-const cursor = document.querySelector(".cursor");
-const dot = document.querySelector(".cursor-dot");
-
-document.addEventListener("mousemove",(e)=>{
-
-cursor.style.left = e.clientX + "px";
-cursor.style.top = e.clientY + "px";
-
-dot.style.left = e.clientX + "px";
-dot.style.top = e.clientY + "px";
+},1500);
 
 });
 
-/* NAVBAR */
+/* ================= NAVBAR ================= */
 
 const navbar = document.getElementById("navbar");
 
 window.addEventListener("scroll",()=>{
 
-navbar.classList.toggle("active",window.scrollY > 50);
+navbar.classList.toggle(
+"active",
+window.scrollY > 50
+);
 
 });
 
-/* REVEAL */
+/* ================= REVEAL ================= */
 
 const observer = new IntersectionObserver((entries)=>{
 
@@ -900,7 +1058,7 @@ entry.target.classList.add("active");
 });
 
 },{
-threshold:0.15
+threshold:.15
 });
 
 document.querySelectorAll(".reveal").forEach((el)=>{
@@ -909,227 +1067,219 @@ observer.observe(el);
 
 });
 
-/* MAGNETIC BUTTON */
-
-document.querySelectorAll(".magnetic").forEach(btn=>{
-
-btn.addEventListener("mousemove",(e)=>{
-
-const rect = btn.getBoundingClientRect();
-
-const x = e.clientX - rect.left - rect.width/2;
-const y = e.clientY - rect.top - rect.height/2;
-
-btn.style.transform =
-`translate(${x*.18}px,${y*.18}px)`;
-
-});
-
-btn.addEventListener("mouseleave",()=>{
-
-btn.style.transform = "translate(0,0)";
-
-});
-
-});
-
-/* CARD TILT */
-
-document.querySelectorAll(".card").forEach((card)=>{
-
-card.addEventListener("mousemove",(e)=>{
-
-const rect = card.getBoundingClientRect();
-
-const x = e.clientX - rect.left;
-const y = e.clientY - rect.top;
-
-const centerX = rect.width / 2;
-const centerY = rect.height / 2;
-
-const rotateX = ((y - centerY) / 18);
-const rotateY = ((centerX - x) / 18);
-
-card.style.transform = `
-rotateX(${rotateX}deg)
-rotateY(${rotateY}deg)
-translateY(-10px)
-`;
-
-});
-
-card.addEventListener("mouseleave",()=>{
-
-card.style.transform = `
-rotateX(0deg)
-rotateY(0deg)
-translateY(0px)
-`;
-
-});
-
-});
-
-/* CURSOR HOVER */
-
-document.querySelectorAll("a,.btn,.card").forEach((item)=>{
-
-item.addEventListener("mouseenter",()=>{
-
-cursor.style.transform =
-"translate(-50%,-50%) scale(1.8)";
-
-});
-
-item.addEventListener("mouseleave",()=>{
-
-cursor.style.transform =
-"translate(-50%,-50%) scale(1)";
-
-});
-
-});
-
-/* THREE JS */
+/* ================= THREE JS ================= */
 
 const scene = new THREE.Scene();
 
+scene.fog = new THREE.FogExp2(0x020617,0.001);
+
+/* CAMERA */
+
 const camera = new THREE.PerspectiveCamera(
-75,
+70,
 window.innerWidth/window.innerHeight,
 0.1,
-1000
+3000
 );
+
+camera.position.z = 90;
+
+/* RENDERER */
 
 const renderer = new THREE.WebGLRenderer({
 canvas:document.getElementById("bgCanvas"),
 alpha:true,
-antialias:true
+antialias:true,
+powerPreference:"high-performance"
 });
 
-renderer.setSize(window.innerWidth,window.innerHeight);
+renderer.setSize(
+window.innerWidth,
+window.innerHeight
+);
 
-camera.position.z = 5;
+renderer.setPixelRatio(
+Math.min(window.devicePixelRatio,2)
+);
 
 /* PARTICLES */
 
-const particlesGeometry = new THREE.BufferGeometry();
+const particlesGeometry =
+new THREE.BufferGeometry();
 
-const particlesCount = 7000;
+const particlesCount = 6000;
 
-const posArray = new Float32Array(particlesCount * 3);
+const positions =
+new Float32Array(particlesCount * 3);
 
 for(let i=0;i<particlesCount*3;i++){
 
-posArray[i] = (Math.random()-.5) * 35;
+positions[i] =
+(Math.random() - 0.5) * 1400;
 
 }
 
 particlesGeometry.setAttribute(
 "position",
-new THREE.BufferAttribute(posArray,3)
+new THREE.BufferAttribute(positions,3)
 );
 
-const particlesMaterial = new THREE.PointsMaterial({
-size:0.015,
-color:"#00bfff"
+const particlesMaterial =
+new THREE.PointsMaterial({
+
+color:"#00bfff",
+size:.8,
+transparent:true,
+opacity:.8
+
 });
 
-const particlesMesh = new THREE.Points(
+const particles =
+new THREE.Points(
 particlesGeometry,
 particlesMaterial
 );
 
-scene.add(particlesMesh);
+scene.add(particles);
 
-/* MAIN OBJECT */
+/* FLOATING RINGS */
 
-const geometry = new THREE.TorusKnotGeometry(
-1.4,
-0.33,
-250,
-32
+const ringGroup = new THREE.Group();
+
+for(let i=0;i<3;i++){
+
+const geometry =
+new THREE.TorusGeometry(
+28 + i * 10,
+0.5,
+16,
+200
 );
 
-const material = new THREE.MeshPhysicalMaterial({
+const material =
+new THREE.MeshBasicMaterial({
 
 color:0x00bfff,
-metalness:1,
-roughness:0.1,
-clearcoat:1,
+transparent:true,
+opacity:0.25
+
+});
+
+const ring =
+new THREE.Mesh(
+geometry,
+material
+);
+
+ring.rotation.x =
+Math.PI / 2;
+
+ringGroup.add(ring);
+
+}
+
+scene.add(ringGroup);
+
+/* CENTER SPHERE */
+
+const sphereGeometry =
+new THREE.SphereGeometry(
+10,
+64,
+64
+);
+
+const sphereMaterial =
+new THREE.MeshPhysicalMaterial({
+
+color:0x00bfff,
 emissive:0x003cff,
-emissiveIntensity:0.7
+emissiveIntensity:1,
+metalness:1,
+roughness:.1,
+transparent:true,
+opacity:.9
 
 });
 
-const torus = new THREE.Mesh(geometry,material);
-
-scene.add(torus);
-
-/* RING */
-
-const ringGeometry = new THREE.TorusGeometry(
-2.8,
-0.03,
-16,
-100
+const sphere =
+new THREE.Mesh(
+sphereGeometry,
+sphereMaterial
 );
 
-const ringMaterial = new THREE.MeshBasicMaterial({
-color:0x00bfff
-});
-
-const ring = new THREE.Mesh(
-ringGeometry,
-ringMaterial
-);
-
-ring.rotation.x = 1.5;
-
-scene.add(ring);
+scene.add(sphere);
 
 /* LIGHTS */
 
-const light1 = new THREE.PointLight(0x00bfff,2);
+const pointLight =
+new THREE.PointLight(
+0x00bfff,
+2
+);
 
-light1.position.set(5,5,5);
+pointLight.position.set(50,50,50);
 
-scene.add(light1);
+scene.add(pointLight);
 
-const ambient = new THREE.AmbientLight(
+const ambient =
+new THREE.AmbientLight(
 0xffffff,
-0.4
+0.35
 );
 
 scene.add(ambient);
 
-/* MOUSE */
+/* MOUSE SMOOTH */
+
+let mouseX = 0;
+let mouseY = 0;
+
+let targetX = 0;
+let targetY = 0;
 
 document.addEventListener("mousemove",(e)=>{
 
-const mouseX =
-(e.clientX/window.innerWidth - 0.5) * 2;
+targetX =
+(e.clientX / window.innerWidth - .5) * 10;
 
-const mouseY =
-(e.clientY/window.innerHeight - 0.5) * 2;
-
-torus.rotation.y = mouseX * 1.5;
-torus.rotation.x = mouseY * 1.5;
+targetY =
+(e.clientY / window.innerHeight - .5) * 8;
 
 });
 
-/* ANIMATE */
+/* ANIMATION */
 
 function animate(){
 
 requestAnimationFrame(animate);
 
-torus.rotation.x += 0.003;
-torus.rotation.y += 0.005;
+/* SMOOTH CAMERA */
 
-ring.rotation.z += 0.0015;
+mouseX += (targetX - mouseX) * .03;
+mouseY += (targetY - mouseY) * .03;
 
-particlesMesh.rotation.y += 0.0006;
+camera.position.x = mouseX;
+camera.position.y = -mouseY;
+
+/* PARTICLES */
+
+particles.rotation.y += .0003;
+particles.rotation.x += .00005;
+
+/* RINGS */
+
+ringGroup.rotation.z += .0015;
+ringGroup.rotation.x += .0005;
+
+/* SPHERE */
+
+sphere.rotation.y += .003;
+
+/* FLOATING */
+
+sphere.position.y =
+Math.sin(Date.now() * .0015) * 2;
 
 renderer.render(scene,camera);
 
